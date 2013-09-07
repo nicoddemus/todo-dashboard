@@ -6,7 +6,7 @@ It updates its internal database of *TODO* entries periodically by scanning the 
 files. This scanning is cheap after the first time, because it remembers which hash 
 was scanned last time and only scans new files changed since then.
 
-The application was designed to be deployed on [heroku](http://www.heroku.com), but it should be
+The application was designed to be deployed on [Heroku](http://www.heroku.com), but it should be
 straighforward to deploy it in any cloud service or local network.
 
 ## Requirements ##
@@ -34,4 +34,14 @@ The following environment variables must be available for it to work:
 * `TODO_DASHBOARD_PROJECTS`: list of projects to scan. All repositories of each project will be 
   scanned, and this should be set to a comma-separated list.
   
-This variables should be configured remotely using the `heroku config:set` command.       
+This variables should be configured remotely using the `heroku config:set` command.
+
+## Updating the Database ##
+
+You should periodically execute `update.py` in [Heroku](http://www.heroku.com) in order to 
+update the database. 
+
+You can easily configure [Heroku Scheduler](https://addons.heroku.com/scheduler)
+to do this periodically. Alternatively, you can `POST` to `/fetch` url in order to start a
+full update or to `/fetch/<project>/<slug>` to update only a single repository. The latter makes
+it easy to make a post-push hook update the database automatically.        
