@@ -1,0 +1,26 @@
+<!doctype html>
+<title>Fetch</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='gumby.css') }}">
+
+<div class="row">
+  <div class="centered six columns">
+    <form action="" method="post">
+        <fieldset>
+        <legend>Enter your <b>Stash</b> credentials</legend>
+        <ul>
+          <li class="field">
+            <label class="normal" for="username">Username</label>
+            <input class="wide text input pretty" name="username" id="username" type="text" placeholder="" />
+          </li>
+          <li class="field">
+            <label class="normal" for="password">Password</label>
+            <input class="wide password input pretty" name="password" id="password" type="password" placeholder="" />
+          </li>
+          <li>
+            <div class="medium primary btn pretty"><input type="submit" value="Login" /></div>
+          </li>
+        </ul>
+        </fieldset>
+    </form>
+  </div>
+</div>

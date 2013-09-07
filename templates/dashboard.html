@@ -1,0 +1,44 @@
+<!doctype html>
+<title>ToDos</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='gumby.css') }}">
+
+<div>
+<h1>ToDos</h1>
+<h3>Listing <emp>"ToDo"s</emp> in all Repositories</h3>
+
+<table class="striped rounded metro">
+	<thead>
+	    <tr>
+	        <th>Project</th>
+	        <th>Filename</th>
+	        <th>Function</th>
+	        <th>Due Date</th>
+	    </tr>
+	</thead>
+	<tbody>
+        {% for entry in entries %}
+            {% for todo in entry['todos'] %}
+            <tr>
+                <td>{{ entry['repo'] }}</td>
+                <td>{{ entry['filename'] }}</td>
+                <td><a href="{{ todo['href'] }}">{{ todo['function_name'] }}</a></td>
+                {% if todo.get('date') %}
+                    {% if todo.get('days_as_timedelta') %}
+                        <td>{{ (todo['date'] + todo['days_as_timedelta']).strftime('%Y-%m-%d') }}</td>
+                    {% else %}
+                        <td>{{ (todo['date']).strftime('%Y-%m-%d') }}</td>
+                    {% endif %}
+                {% else %}
+                    <td>[No date]</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        {% endfor %}
+	</tbody>
+</table>
+
+{% if date and elapsed %}
+<p>(Last updated: {{ date }} in {{ elapsed }})</p>
+{% endif %} 
+
+</div>
