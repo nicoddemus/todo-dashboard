@@ -11,8 +11,8 @@ straighforward to deploy it in any cloud service or local network.
 
 ## Requirements ##
 
-The application is written for **Python 2.7**, using [Flask](http://flask.pocoo.org/) for its
-web framework and [MongoDB](http://api.mongodb.org/python/current/) for its database.
+The application is written for **Python 2.7**, using [Flask](http://flask.pocoo.org/) and 
+[MongoDB](http://api.mongodb.org/python/current/).
 
 This are the main requirements, for a complete list consult [requirements.txt](requirements.txt).
 
@@ -39,7 +39,7 @@ This variables should be configured remotely using the `heroku config:set` comma
 ## Updating the Database ##
 
 You should periodically execute `update.py` in [Heroku](http://www.heroku.com) in order to 
-update the database. 
+update the database, using `heroku run python update.py`. 
 
 You can easily configure [Heroku Scheduler](https://addons.heroku.com/scheduler)
 to do this periodically. Alternatively, you can `POST` to `/fetch` url in order to start a
