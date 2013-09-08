@@ -136,6 +136,7 @@ class MongoStorage(object):
     def drop_all(self):
         self._db.drop_collection('todos')
         self._db.drop_collection('hashes')
+        self._db.drop_collection('fetch_all_status')
         
         
     def drop_todos_for_repo(self, repo_name):
