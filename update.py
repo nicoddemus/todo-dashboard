@@ -160,7 +160,7 @@ class MongoStorage(object):
             entry['repo'] = repo_name
             entry['filename'] = filename
             entry['todos'] = todos
-            self._db.todos.insert(entry)
+            self._db.todos.save(entry)
         else:
             if entry is not None:
                 self._db.todos.remove(entry['_id'])
@@ -309,7 +309,7 @@ def fetch(repo_name, storage, stash, stream):
                 summary[filename] = len(todos)
             else:
                 stream.write('.')
-                
+
             storage.update_todos(repo_name, filename, todos)
                 
         storage.set_last_hash(repo_name, master)
