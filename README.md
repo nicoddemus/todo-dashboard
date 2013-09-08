@@ -2,9 +2,9 @@
 
 Web application that displays a list of *TODO* markers in git repositories.
 
-It updates its internal database of *TODO* entries periodically by scanning the repositories source
-files. This scanning is cheap after the first time, because it remembers which hash 
-was scanned last time and only scans new files changed since then.
+It updates its internal database of *TODO* entries by scanning the repositories source
+files periodically. This scanning is cheap after the first time, because it remembers which hash 
+was last scanned and only scans files changed since then.
 
 The application was designed to be deployed on [Heroku](http://www.heroku.com), but it should be
 straighforward to deploy it in any cloud service or local network.
