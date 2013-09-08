@@ -387,13 +387,26 @@ def drop_todos(repo_name):
     else:
         print 'No ToDos registered for %s' % repo_name
             
-    
+
+#===================================================================================================
+# drop_all
+#=================================================================================================== 
+def drop_all():
+    answer = raw_input('This will drop ALL tables. Next update will refresh all todos from scratch.'
+        '\nProceed? (type "YES") ')
+    if answer == 'YES':
+        storage = MongoStorage()
+        storage.drop_all()
+        print 'All tables dropped.'
+
+
 #===================================================================================================
 # main
 #===================================================================================================
 def main(argv):    
     parser = optparse.OptionParser()
     parser.add_option('--drop', type=str)
+    parser.add_option('--drop-all', action='store_true', default=False)
     parser.add_option('--fetch', type=str)
     options, _ = parser.parse_args(argv)
 
@@ -403,6 +416,8 @@ def main(argv):
         drop_todos(options.drop)
     elif options.fetch:
         fetch_single(config.git_repo_url, options.fetch, auth=config.auth)
+    elif options.drop_all:
+        drop_all()
     else:
         # ugly hack to consume the entire generator... think of a better way to handle this
         list(fetch_all(config.git_repo_url, config.search_projects, auth=config.auth))
