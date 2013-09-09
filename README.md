@@ -9,6 +9,8 @@ was last scanned and only scans files changed since then.
 The application was designed to be deployed on [Heroku](http://www.heroku.com), but it should be
 straighforward to deploy it in any cloud service or local network.
 
+![ci](https://secure.travis-ci.org/nicoddemus/todo-dashboard.png?branch=master)
+
 ## Requirements ##
 
 The application is written for **Python 2.7**, using [Flask](http://flask.pocoo.org/) and 
