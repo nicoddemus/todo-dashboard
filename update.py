@@ -123,15 +123,22 @@ class StashServer(object):
 #===================================================================================================
 class MongoStorage(object):
     
-    def __init__(self):
-        mongodb_uri = os.environ.get('MONGOLAB_URI', 'mongodb://localhost:27017/mongoquest')
+    def __init__(self, default_db_name='todos'):
+        mongodb_uri = os.environ.get('MONGOLAB_URI', 'mongodb://localhost:27017/{}'.format(default_db_name))
         db_name = urlsplit(mongodb_uri).path[1:]
-        connection = pymongo.Connection(mongodb_uri)
-        self._db = connection[db_name]
+        self._connection = pymongo.Connection(mongodb_uri)
+        self._db = self._connection[db_name]
         
         self._db.todos.create_index([('repo', pymongo.ASCENDING), ('filename', pymongo.ASCENDING)])
         self._db.hashes.create_index('repo')
         
+        self.__TESTING__ = False
+        
+        
+    def get_connection(self):
+        assert self.__TESTING__
+        return self._connection
+    
         
     def drop_all(self):
         self._db.drop_collection('todos')
@@ -168,7 +175,7 @@ class MongoStorage(object):
                 
                 
     def iter_all_todos(self):
-        return self._db.todos.find()
+        return iter(self._db.todos.find())
     
     
     def get_last_hash(self, repo_name):
@@ -238,14 +245,12 @@ def IterToDos(contents):
                 else:
                     days = None
                     
-                self.todos.append(
-                    dict(
-                        function_name=function_name, 
-                        date=date, 
-                        days=days, 
-                        lineno=function_def.lineno,
-                    )
-                )
+                self.todos.append({
+                    'function_name' : function_name, 
+                    'date' : date, 
+                    'days' : days, 
+                    'lineno' : function_def.lineno,
+                })
     
     visitor = MyVisitor()
     try:
