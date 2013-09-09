@@ -106,6 +106,28 @@ class TestMongoStorage(object):
         ]
         
         
+    def test_last_hash(self, storage):
+        assert storage.get_last_hash('proj/repo1') is None
+        assert storage.get_last_hash('proj/repo2') is None
+        
+        storage.set_last_hash('proj/repo1', '11111')
+        assert storage.get_last_hash('proj/repo1') == '11111'
+        assert storage.get_last_hash('proj/repo2') is None
+        
+        storage.set_last_hash('proj/repo2', '22222')
+        assert storage.get_last_hash('proj/repo1') == '11111'
+        assert storage.get_last_hash('proj/repo2') == '22222'
+        
+        
+    def test_last_fetch_all_status(self, storage):
+        assert storage.get_last_fetch_all_status() == (None, None)
+        
+        date = datetime.datetime(2013, 9, 8, 23, 30, 0)
+        storage.set_last_fetch_all_status(date, datetime.timedelta(seconds=40))
+        
+        assert storage.get_last_fetch_all_status() == ('2013-09-08 23:30:00', '0:00:40')
+        
+        
 #===================================================================================================
 # main
 #===================================================================================================
