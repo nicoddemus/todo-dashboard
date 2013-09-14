@@ -3,4 +3,4 @@ python:
   - 2.7
 services:
   - mongodb
-script: py.test 
+script: py.test --stash-url=https://eden.esss.com.br/stash --stash-repo=~bruno/todo-dashboard-test
