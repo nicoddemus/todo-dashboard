@@ -78,10 +78,11 @@ class StashServer(object):
         return result
         
 
-    def iter_file_names(self, repo_name, since=None, until=None):
+    def iter_file_names(self, repo_name, since=None, until=None, at=None):
         params = {'limit': 1000}
         
         if until is not None:
+            assert at is not None, "either pass 'since' and 'until' params or 'at'"
             params['until'] = until
             if since is not None:
                 params['since'] = since
@@ -91,6 +92,8 @@ class StashServer(object):
                 for value in json['values']:
                     yield value['path']['toString']
         else:
+            if at is not None:
+                params['at'] = at
             url = self._make_repo_url_api(repo_name, '/files')
             for json in self._iter_paged_requests(url, params):
                 for filename in json['values']:
