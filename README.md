@@ -16,7 +16,7 @@ straighforward to deploy it in any cloud service or local network.
 The application is written for **Python 2.7**, using [Flask](http://flask.pocoo.org/) and 
 [MongoDB](http://api.mongodb.org/python/current/).
 
-This are the main requirements, for a complete list consult [requirements.txt](requirements.txt).
+For a complete list consult [requirements.txt](requirements.txt).
 
 ## Limitations ##
 
